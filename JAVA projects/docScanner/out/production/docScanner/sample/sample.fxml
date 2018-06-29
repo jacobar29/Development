@@ -1,0 +1,25 @@
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<GridPane fx:controller="sample.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+    <BorderPane>
+
+        <center>
+            <VBox>
+                <Label text="Enter text to search here"/>
+                <TextArea fx:id="searchText"/>
+
+                <Label text="Enter words to search for here seperated by commas:" />
+                <TextArea fx:id="inputArea"/>
+                <Button text="search" onAction="#handleButton"/>
+
+                <Label text="Words found: "/>
+                <TextArea fx:id="outputField" visible="false"/>
+            </VBox>
+        </center>
+
+    </BorderPane>
+
+</GridPane>

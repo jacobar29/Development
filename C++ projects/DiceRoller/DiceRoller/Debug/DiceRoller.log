@@ -1,0 +1,4 @@
+﻿  Main.cpp
+c:\users\j\documents\diceroller\diceroller\main.cpp(35): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  DiceRoller.vcxproj -> C:\Users\J\Documents\DiceRoller\Debug\DiceRoller.exe
+  DiceRoller.vcxproj -> C:\Users\J\Documents\DiceRoller\Debug\DiceRoller.pdb (Partial PDB)
