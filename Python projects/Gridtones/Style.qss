@@ -1,0 +1,65 @@
+
+.QSlider::groove:vertical {
+    border: 1px solid rgb(79, 178, 79);
+    width: 18px;
+    background-color: rgb(79, 178, 255);
+    border-radius: 9px;
+    }
+QSlider::groove:horizontal {
+    border: 1px solid rgb(79, 178, 255);
+    height: 18px;
+    background-color: rgb(79, 178, 255);
+    border-radius: 9px;
+    }
+
+QSlider::handle:vertical {
+    background-color: rgb(255,105,180);
+    border: 2px solid rgb(255,105,180);
+    height: 16px;
+    width: 20px;
+    line-width: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border-radius: 10px;
+    }
+
+QSlider::handle:horizontal {
+    background-color: rgb(255,105,180);
+    border: 2px solid rgb(255,105,180);
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+    border-radius: 10px;
+    }
+QPushButton{
+    background-color: rgb(255,105,180);
+    border-width: 1px;
+    border-style: hidden;
+    border-radius: 15px;
+    max-height: 50;
+    width: 50;
+
+    }
+
+
+ QPushButton:pressed{
+    background-color: rgb(224, 0, 0);
+    border-style: inset;
+    }
+
+.highlighted{
+    background-color: rgb(255,105,180);
+
+}
+QLabel{
+    qproperty-alignment: AlignCenter;
+}
+QDial{
+        range: 0,100;
+        notches-visible: true;
+        max-width: 50px;
+        background-color: rgb(255,105,180 );
+    }
+
