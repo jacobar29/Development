@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-
+#include "Oscillator.h"
 
 //==============================================================================
 /**
@@ -59,10 +59,9 @@ public:
 
 private:
 
-
+	Oscillator osc;
 	float frequency;
-	float phase;
-	float fSampleRate;
+
 
 	//represents sin wave value
 	float wave;

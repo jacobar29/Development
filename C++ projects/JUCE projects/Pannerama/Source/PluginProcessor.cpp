@@ -10,22 +10,22 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-# define M_PI 3.14159265358979323846  // value of pi
 
 
 //==============================================================================
 PanneramaAudioProcessor::PanneramaAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
-     : AudioProcessor (BusesProperties()
-                     #if ! JucePlugin_IsMidiEffect
-                      #if ! JucePlugin_IsSynth
-                       .withInput  ("Input",  AudioChannelSet::stereo(), true)
-                      #endif
-                       .withOutput ("Output", AudioChannelSet::stereo(), true)
-                     #endif
-                       ), tree(*this, nullptr)
+	: AudioProcessor(BusesProperties()
+#if ! JucePlugin_IsMidiEffect
+#if ! JucePlugin_IsSynth
+		.withInput("Input", AudioChannelSet::stereo(), true)
+#endif
+		.withOutput("Output", AudioChannelSet::stereo(), true)
+#endif
+	), tree(*this, nullptr), osc()
 #endif
 {
+
 	NormalisableRange<float> rateParam(1.0f, 1000.0f, 1.0f);
 	tree.createAndAddParameter("panRate", "PanRate", "panRate", rateParam, 50, nullptr, nullptr);
 
@@ -105,9 +105,7 @@ void PanneramaAudioProcessor::changeProgramName (int index, const String& newNam
 void PanneramaAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
 	// initialize values
-	phase = 0.0;
-	fSampleRate = sampleRate;
-	
+	osc.setSampleRate(sampleRate);
 }
 
 void PanneramaAudioProcessor::releaseResources()
@@ -144,9 +142,8 @@ void PanneramaAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffe
 {
 	//generate sin wave, increment phase
 	frequency = *tree.getRawParameterValue("panRate");
-	wave = sin(phase*(2* M_PI));
-	if (phase >= 1.0) phase -= 1.0;
-		phase += (1. / (fSampleRate / frequency));
+	wave = osc.sinewave(frequency);
+
 	
 	lGainVal = 1 - wave;
 	rGainVal = 1 + wave;
