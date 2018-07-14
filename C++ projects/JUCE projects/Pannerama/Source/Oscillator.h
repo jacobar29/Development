@@ -23,10 +23,21 @@ public:
 	void setSampleRate(int SampleRate);
 	int getSampleRate();
 	float sinewave(float frequency);
+	float squareWave(float frequency);
+	float triangleWave(float frequency);
+	float sawWave(float frequency);
+	float whiteNoise();
+
+
+	void advancePhase(float frequncy);
 
 private:
 	float phase; 
 	float sampleRate = 44100;
+
+	//square wave values
+	int n;
+	int out;
 
 
 

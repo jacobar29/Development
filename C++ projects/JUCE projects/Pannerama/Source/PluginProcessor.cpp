@@ -142,7 +142,7 @@ void PanneramaAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffe
 {
 	//generate sin wave, increment phase
 	frequency = *tree.getRawParameterValue("panRate");
-	wave = osc.sinewave(frequency);
+	wave = osc.sawWave(frequency);
 
 	
 	lGainVal = 1 - wave;
@@ -150,7 +150,7 @@ void PanneramaAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffe
 
 	// addition of a portion of the dry signal to each channel creates the illusion of reduced pan width
 	// max width is a dry gain of 0, min is 1, slider value is inverted so that max slider value = max width
-	dryGain = 1 - *tree.getRawParameterValue("panWidth");
+	dryGain = 1 - *tree.getRawParameterValue("panWidth") + 0.2;
 
 	//calculate number of input and output channels
 	ScopedNoDenormals noDenormals;
