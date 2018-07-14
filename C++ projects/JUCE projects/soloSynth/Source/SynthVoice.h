@@ -11,9 +11,11 @@
  //todo velocity and gain? rn its one gain level regardless of velocity
 
 #pragma once
-#include "maximilian.h"
+#include ".\JackAudioToolkit\JackEnv.h"
+#include ".\JackAudioToolkit\JackOsc.h"
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "Maximilian\maximilian.h"
 
  class SynthVoice : public SynthesiserVoice {
 
@@ -140,18 +142,22 @@
 
 		
 
-	  switch (osc2WaveType)
-		 {
-		 case 0: return env1.adsr(osc1.sinewave(freq) * gain, env1.trigger);
-			 break;
+	  switch (osc1WaveType)
+	  {
+	  case 0: return env1.adsr(osc1.sinewave(freq)* gain, env1.trigger) ;
+		  break;
 
-		 case 1: return env1.adsr(osc1.saw(freq) * gain, env1.trigger);
-			 break;
-		 case 2: return env1.adsr(osc1.square(freq) * gain, env1.trigger);
-			 break;
-		 default: return env1.adsr(osc1.sinewave(freq) * gain, env1.trigger);
-			 break;
-		 }
+	  case 1: return env1.adsr(osc1.sawWave(freq)* gain, env1.trigger);
+		  break;
+	  case 2: return env1.adsr(osc1.squareWave(freq)* gain, env1.trigger);
+		  break;
+	  case 3: return env1.adsr(osc1.triangleWave(freq), env1.trigger);
+		  break;
+	  case 4: return env1.adsr(osc1.whiteNoise()* gain, env1.trigger) ;
+		  break;
+	  default: return env1.adsr(osc1.sinewave(freq)* gain, env1.trigger) ;
+		  break;
+	  }
 	 }
 	
 	 double getosc2Note()
@@ -159,13 +165,18 @@
 
 		 switch (osc2WaveType)
 		 {
-		 case 0: return env2.adsr(osc2.sinewave(freq2) * gain2, env2.trigger);
+		 case 0: return env2.adsr(osc2.sinewave(freq)* gain, env2.trigger);
 			 break;
-		 case 1: return env2.adsr(osc2.saw(freq2) * gain2, env2.trigger);
+
+		 case 1: return env2.adsr(osc2.sawWave(freq)* gain, env2.trigger);
 			 break;
-		 case 2: return env2.adsr(osc2.square(freq2) * gain2, env2.trigger);
+		 case 2: return env2.adsr(osc2.squareWave(freq)* gain, env2.trigger);
 			 break;
-		 default: return env2.adsr(osc2.sinewave(freq2) * gain2, env2.trigger);
+		 case 3: return env2.adsr(osc2.triangleWave(freq), env2.trigger);
+			 break;
+		 case 4: return env2.adsr(osc2.whiteNoise()* gain, env2.trigger);
+			 break;
+		 default: return env2.adsr(osc2.sinewave(freq)* gain, env2.trigger);
 			 break;
 		 }
 	 }
@@ -269,8 +280,8 @@
 	 double wave2;
 
 	 // maximillian oscillators
-	 maxiOsc osc1;
-	 maxiOsc osc2;
+	 JackOsc osc1;
+	 JackOsc osc2;
 
 	 // determines what waveform is produced by the maxiOsc
 	 int osc1WaveType;
@@ -292,8 +303,8 @@
 	
 	 // ====== LFO ====
 	 // lfo carrier waves
-	 maxiOsc modWave;
-	 maxiOsc modWave2;
+	 JackOsc modWave;
+	 JackOsc modWave2;
 
 	 // LFO parameter slider values
 	 float lfo1Depth;
@@ -326,8 +337,8 @@
 	 double osc2Frequency;
 
 	 // ======== envelope ====
-	 maxiEnv env1;
-	 maxiEnv env2;
+	 JackEnv env1;
+	 JackEnv env2;
 
 	 // ===== filter =======
 	 maxiFilter filter1;

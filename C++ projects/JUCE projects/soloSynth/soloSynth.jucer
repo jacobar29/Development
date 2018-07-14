@@ -4,11 +4,6 @@
               pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn"
               pluginFormats="buildAU,buildStandalone,buildVST">
   <MAINGROUP id="ms087S" name="soloSynth">
-    <FILE id="WB6Agf" name="maximilian.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/maximilian.h"/>
-    <FILE id="AELK2H" name="maximilian.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/maximilian.cpp"/>
-    <FILE id="CvRnc0" name="main.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/main.cpp"/>
-    <FILE id="kUXxVl" name="stb_vorbis.c" compile="1" resource="0" file="../../../libraries/C++/Maximilian/stb_vorbis.c"/>
-    <FILE id="PvGtHY" name="stb_vorbis.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/stb_vorbis.h"/>
     <GROUP id="{FFC0AE34-8A63-A830-6761-B3A1E91C527C}" name="Source">
       <FILE id="RSw0dv" name="OscGui.h" compile="0" resource="0" file="Source/OscGui.h"/>
       <FILE id="Lv6jV6" name="OscGui.cpp" compile="1" resource="0" file="Source/OscGui.cpp"/>
@@ -32,27 +27,40 @@
       <FILE id="ljIknT" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="Rv6a5w" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
     </GROUP>
-    <GROUP id="{3C723868-818F-182A-8C00-23AB68133F68}" name="libs">
-      <FILE id="hTQezR" name="fft.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/fft.cpp"/>
-      <FILE id="jFsCI9" name="fft.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/fft.h"/>
-      <FILE id="KHbjrn" name="maxiAtoms.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiAtoms.cpp"/>
-      <FILE id="SMcn4m" name="maxiAtoms.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiAtoms.h"/>
-      <FILE id="dkFDrL" name="maxiBark.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiBark.cpp"/>
-      <FILE id="SQcK9o" name="maxiBark.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiBark.h"/>
-      <FILE id="K4G5mG" name="maxiFFT.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiFFT.cpp"/>
-      <FILE id="tRkxon" name="maxiFFT.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiFFT.h"/>
-      <FILE id="wZWoDJ" name="maxiGrains.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiGrains.cpp"/>
-      <FILE id="mxYP7J" name="maxiGrains.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiGrains.h"/>
-      <FILE id="ROq0mZ" name="maxim.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxim.h"/>
-      <FILE id="YsuDhu" name="maxiMFCC.cpp" compile="1" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiMFCC.cpp"/>
-      <FILE id="XOzcMj" name="maxiMFCC.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/maxiMFCC.h"/>
-      <FILE id="TMScxh" name="sineTable.h" compile="0" resource="0" file="../../../libraries/C++/Maximilian/libs/sineTable.h"/>
+    <GROUP id="{2C51C51F-2639-B09C-F8C7-AC091AA6E96E}" name="JackAudioToolkit">
+      <FILE id="dHIWiO" name="JackEnv.cpp" compile="1" resource="0" file="Source/JackAudioToolkit/JackEnv.cpp"/>
+      <FILE id="QCuN8U" name="JackEnv.h" compile="0" resource="0" file="Source/JackAudioToolkit/JackEnv.h"/>
+      <FILE id="Eef6um" name="JackOsc.cpp" compile="1" resource="0" file="Source/JackAudioToolkit/JackOsc.cpp"/>
+      <FILE id="evNJNP" name="JackOsc.h" compile="0" resource="0" file="Source/JackAudioToolkit/JackOsc.h"/>
+    </GROUP>
+    <GROUP id="{09B869D8-E66D-5551-98A0-7D475058D11A}" name="Maximilian">
+      <GROUP id="{5B6ADF1B-A4B3-4D99-822F-4AC3B7356EAA}" name="libs">
+        <FILE id="dMCaKg" name="fft.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/fft.cpp"/>
+        <FILE id="mpmWCX" name="fft.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/fft.h"/>
+        <FILE id="KWiSj4" name="maxiAtoms.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiAtoms.cpp"/>
+        <FILE id="HbhKpM" name="maxiAtoms.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiAtoms.h"/>
+        <FILE id="CHai9M" name="maxiBark.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiBark.cpp"/>
+        <FILE id="xr03Fr" name="maxiBark.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiBark.h"/>
+        <FILE id="ILNdrx" name="maxiFFT.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiFFT.cpp"/>
+        <FILE id="LqQ1TZ" name="maxiFFT.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiFFT.h"/>
+        <FILE id="C1kszz" name="maxiGrains.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiGrains.cpp"/>
+        <FILE id="whXMh9" name="maxiGrains.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiGrains.h"/>
+        <FILE id="RWSitS" name="maxim.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxim.h"/>
+        <FILE id="y0allM" name="maxiMFCC.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiMFCC.cpp"/>
+        <FILE id="kdbVAU" name="maxiMFCC.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/maxiMFCC.h"/>
+        <FILE id="UNCzGy" name="sineTable.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/libs/sineTable.h"/>
+      </GROUP>
+      <FILE id="RhKuPJ" name="main.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/main.cpp"/>
+      <FILE id="cwFlmu" name="maximilian.cpp" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/maximilian.cpp"/>
+      <FILE id="tc7Srz" name="maximilian.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/maximilian.h"/>
+      <FILE id="DHoyxq" name="stb_vorbis.c" compile="1" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/stb_vorbis.c"/>
+      <FILE id="uzqxnb" name="stb_vorbis.h" compile="0" resource="0" file="../../../../Documents/dev/libraries/C++/Maximilian/stb_vorbis.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
     <VS2015 targetFolder="Builds/VisualStudio2015">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" headerPath="C:\Users\J\Documents\dev\libraries\C++\Maximilian"/>
+        <CONFIGURATION isDebug="1" name="Debug"/>
         <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
@@ -76,23 +84,23 @@
     </VS2015>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="0"
-            useGlobalPath="0"/>
-    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
-    <MODULE id="juce_video" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_audio_plugin_client" showAllCode="1" useLocalCopy="1"
+            useGlobalPath="1"/>
+    <MODULE id="juce_audio_processors" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
+    <MODULE id="juce_video" showAllCode="1" useLocalCopy="1" useGlobalPath="1"/>
   </MODULES>
   <LIVE_SETTINGS>
     <WINDOWS/>
