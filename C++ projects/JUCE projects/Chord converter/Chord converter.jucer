@@ -7,6 +7,7 @@
       <FILE id="fpVGAd" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
       <FILE id="zyMJu1" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="MMRIKJ" name="chords.txt" compile="0" resource="1" file="Source/chords.txt"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>

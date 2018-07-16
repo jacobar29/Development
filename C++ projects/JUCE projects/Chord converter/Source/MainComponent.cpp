@@ -10,11 +10,14 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <fstream>
+
 #include <iostream>
 //==============================================================================
 MainComponent::MainComponent()
 {
-    setSize (600, 400);
+	getChordsFromFile();
+    setSize (800, 400);
 	inL.setText("Input Text Here (Sharps not flats!)", dontSendNotification);
 	addAndMakeVisible(inL);
 	inL.setJustificationType(Justification::centred);
@@ -37,7 +40,7 @@ MainComponent::MainComponent()
 	addAndMakeVisible(transSlider);
 		
 	addAndMakeVisible(output);
-	output.setJustification(Justification::horizontallyCentred);
+
 	clear.setButtonText("Clear");
 	clear.addListener(this);
 	addAndMakeVisible(clear);
@@ -49,6 +52,21 @@ MainComponent::~MainComponent()
 }
 
 //==============================================================================
+void MainComponent::getChordsFromFile()
+{
+	std::ifstream chordsin;
+	chordsin.open("C:\\Users\\J\\Development\\C++ projects\\JUCE projects\\Chord converter\\Source\\chords.txt");
+	std::string str;
+	
+
+	while (std::getline(chordsin, str))
+	{
+		chordDiagrams.push_back(str);
+	}
+	chordsin.close();
+
+ }
+
 void MainComponent::getInputText()
 {
 	//get text from the inputWindow, store it in vector inputChords, seperating at spaces
@@ -71,11 +89,70 @@ void MainComponent::getInputText()
 		inputChords[i][0] = toupper(inputChords[i][0]);
 
 }
+
+void MainComponent::printChordDiagrams()
+{
+   //clear gui and rows array
+	outputChords.clear();
+	for (int i = 0; i < 6; i++)
+		rows[i].clear();
+		
+	// loop all chords to print
+	for (int i = 0; i < chordsToPrint.size(); i++)
+	{
+		//find chord in chorddiagrams
+		int j = 0;	
+		while (j < chordDiagrams.size())
+		{	
+			rowLength = chordsToPrint[i].length();
+			
+			// if chord found
+			if (chordDiagrams[j].find(chordsToPrint[i]+ " ") != std::string::npos)
+			{
+				// extract chord diagram to string
+				tempChord = chordDiagrams[j];
+			  	int currRow = 0;
+				//loop through characters of chord
+				for (int pos = 0; pos < tempChord.length(); pos++)
+				{
+					// if not whitespace or the | deonting end of chord in the text file
+					if (tempChord[pos] != ' ' && tempChord[pos] != '|' && tempChord[pos] != '\n')
+					{
+						rows[currRow] += tempChord[pos];
+						rowLength++;
+					}
+				  	else
+					{
+						// ensure even spacing of chords by adding whitespace until row is the correct length
+						while(rowLength != 8)
+						{
+							rows[currRow] += ' ';
+							rowLength++;
+						}
+						rowLength = 0;
+						if(currRow < 5)
+							currRow++;
+					   }
+				} // end for itterate through char in tempChord
+			} // end if chord found loop
+
+			j++;
+		} // end while loop ( j < chordDiagrams.size())
+			
+	} // end all chords to print loop
+	
+	for (int row = 0; row < 5; row++)
+		outputChords.append(rows[row] + "\n");
+	output.setText(outputChords);
+}
+
+
 void MainComponent::sliderValueChanged(Slider* slider)
 {
 	getInputText();
 	outString.clear();
-   
+	chordsToPrint.clear();
+
 	//get modifier from slider
 	modifier = slider->getValue();
 
@@ -128,19 +205,19 @@ void MainComponent::sliderValueChanged(Slider* slider)
 			}
 		}
 
-		//append to output string
-		outString.append(chords[newNoteIndex]);
-		outString.append(noteSuffix);
-		outString.append(" ");
+		//append to output string and chordsToPrint
+		chordsToPrint.push_back((chords[newNoteIndex] + noteSuffix));
+
 	}
 
-	// clear outputwindow and write output string
-	output.setText(outString);
+	// clear outputwindow and write  string
+	printChordDiagrams();
 
 }
 
 void MainComponent::buttonClicked(Button* button)
 {
+
 	//clear both text boxes and reset slider to 0
 	input.setText("");
 	output.setText("");
@@ -162,10 +239,11 @@ void MainComponent::resized()
 {
 
 	juce::Rectangle<int> area = getLocalBounds();
-	juce::Rectangle<int> buttonArea(area.getWidth(), 50);
+	juce::Rectangle<int> buttonArea(area.getWidth() - 200, 50);
 	area.removeFromLeft(10);
 	area.removeFromRight(10);
 	area.removeFromTop(10);
+
 
 	inL.setBounds(area.removeFromTop(20));
 	area.removeFromTop(10);
