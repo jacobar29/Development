@@ -9,7 +9,9 @@
 */
 
 #include "JackDistortion.h"
-#include <math.h>
+#include <math.h> 
+
+# define M_PI 3.14159265358979323846  // value of pi
 
 float JackDistortion::clipSym(float input, float threshold)
 {
@@ -30,20 +32,23 @@ float JackDistortion::clipAsym(float input, float threshold)
 		signal = threshold;
 	return signal;
 }
-
-float JackDistortion::fuzz(float input, float threshold)
+	// fuzz is VERY MESSY and values below the gate are almost entirely lost, 
+	//the gate is intended to eliminate screaming feedback from signal noise,this can be really cool so it isnt hardcoded (0.01 is enough for most cases) but is far from pleasent
+	// gate values of 0.01 - 0.1 work well
+float JackDistortion::fuzz(float input, float threshold, float gate = 0.01)
 {
-	if (threshold > 1)
-		threshold = 1;
+	
 	signal = input;
-	float distSignal;
-	float gate = 0.01;
-	if (signal > gate)
-		distSignal = threshold - exp(-signal);
-	else if (signal < -gate)
-		distSignal = threshold + exp(signal);
-	distSignal = (signal + (distSignal * threshold));
-	return distSignal * 1;
+	// if signal is between gate and negative gate
+	if ((signal < gate  && signal > 0) || (signal < 0 && signal > -gate))
+		return signal;
+
+	if (signal > 0)
+		signal = threshold - exp(-signal);
+	
+	else if (signal < 0)
+		signal = threshold + exp(signal);
+
+	return signal;
 
 }
-	  // fuzz - flip values and throttle threshold range, last 20% sounds good but the rest is too much,

@@ -171,9 +171,9 @@ void JackDistortionAudioProcessor::processBlock (AudioBuffer<float>& buffer, Mid
 		if(*tree.getRawParameterValue("distType") == 0)
 			channelDataC = dist.clipSym(channelDataC * inputGain, threshold);
 		else if (*tree.getRawParameterValue("distType") == 1)
-			channelDataC = dist.clipAsym(channelDataC, threshold);
+			channelDataC = dist.clipAsym(channelDataC* inputGain, threshold);
 		else if (*tree.getRawParameterValue("distType") == 2)
-			channelDataC = dist.fuzz(channelDataC, threshold);
+			channelDataC = dist.fuzz(channelDataC, threshold, inputGain);
 		// write gain scaled data to left and right channels
 		for (int channel = 0; channel < totalNumInputChannels; ++channel)
 		{

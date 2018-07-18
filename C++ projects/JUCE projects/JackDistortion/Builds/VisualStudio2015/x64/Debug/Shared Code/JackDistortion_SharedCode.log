@@ -1,6 +1,4 @@
 ﻿  JackDistortion.cpp
-..\..\Source\JackDistortion.cpp(40): warning C4305: 'initializing': truncation from 'double' to 'float'
-..\..\Source\JackDistortion.cpp(42): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-..\..\Source\JackDistortion.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\j\documents\dev\juce\projects\jackdistortion\source\jackdistortion.cpp(45): warning C4701: potentially uninitialized local variable 'distSignal' used
-  JackDistortion_SharedCode.vcxproj -> C:\Users\J\Documents\dev\juce\projects\JackDistortion\Builds\VisualStudio2015\x64\Debug\Shared Code\JackDistortion.lib
+..\..\Source\JackDistortion.cpp(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+..\..\Source\JackDistortion.cpp(45): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  JackDistortion_SharedCode.vcxproj -> C:\Users\J\Development\C++ projects\JUCE projects\JackDistortion\Builds\VisualStudio2015\x64\Debug\Shared Code\JackDistortion.lib
