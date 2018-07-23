@@ -23,3 +23,28 @@ private:
 	float phase;
 
 };
+
+//=====================================================================
+
+
+class JackDelay {
+
+public:
+	
+	void prepareToPlay(int sampleRate);
+
+	float process(float inputSample, float decay, int delay);
+
+private:
+	float sampleRate;
+	float output;
+	
+	int delayTime;
+	int delayLength;
+
+	std::vector<float> buffCopy; 
+	int writePointer;
+	int readPointer;
+	int bufferLength;
+
+};
