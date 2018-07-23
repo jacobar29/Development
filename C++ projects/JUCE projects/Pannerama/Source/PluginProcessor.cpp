@@ -26,11 +26,14 @@ PanneramaAudioProcessor::PanneramaAudioProcessor()
 #endif
 {
 
-	NormalisableRange<float> rateParam(1.0f, 1000.0f, 1.0f);
+	NormalisableRange<float> rateParam(1.0f, 1000, 1.0f);
 	tree.createAndAddParameter("panRate", "PanRate", "panRate", rateParam, 50, nullptr, nullptr);
 
 	NormalisableRange<float> widthParam(0.0f, 1.0f, 0.1f);
 	tree.createAndAddParameter("panWidth", "PanWidth", "panwidth", widthParam, 0.5, nullptr, nullptr);
+
+	NormalisableRange<float> waveParam(0.0f, 4.0f, 1.0f);
+	tree.createAndAddParameter("waveType", "WaveType", "waveType", waveParam, 0, nullptr, nullptr);
 
 
 }
@@ -104,8 +107,7 @@ void PanneramaAudioProcessor::changeProgramName (int index, const String& newNam
 //==============================================================================
 void PanneramaAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-	// initialize values
-	osc.setSampleRate(sampleRate);
+	osc.prepareToPlay(sampleRate);
 }
 
 void PanneramaAudioProcessor::releaseResources()
@@ -142,15 +144,17 @@ void PanneramaAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffe
 {
 	//generate sin wave, increment phase
 	frequency = *tree.getRawParameterValue("panRate");
-	wave = osc.sawWave(frequency);
+	int waveType = *tree.getRawParameterValue("waveType");
 
 	
-	lGainVal = 1 - wave;
-	rGainVal = 1 + wave;
+
 
 	// addition of a portion of the dry signal to each channel creates the illusion of reduced pan width
 	// max width is a dry gain of 0, min is 1, slider value is inverted so that max slider value = max width
-	dryGain = 1 - *tree.getRawParameterValue("panWidth") + 0.2;
+	width = 1 - *tree.getRawParameterValue("panWidth");
+	wave = osc.process(waveType, frequency);		  // priduce wave values between 0 and 1
+	lGainVal = wave;
+	rGainVal = 1 - wave;
 
 	//calculate number of input and output channels
 	ScopedNoDenormals noDenormals;
@@ -160,22 +164,21 @@ void PanneramaAudioProcessor::processBlock(AudioBuffer<float>& buffer, MidiBuffe
 	for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
 		buffer.clear(i, 0, buffer.getNumSamples());
 
-	// assumes 2 channels
-	float* channelDataL = buffer.getWritePointer(0);
-	float* channelDataR = buffer.getWritePointer(1);
-
+	const float* inputDataL = buffer.getReadPointer(0);
+	const float* inputDataR = buffer.getReadPointer(1);
+	float* outputDataL = buffer.getWritePointer(0);
+	float* outputDataR = buffer.getWritePointer(1);
 	// iterate through buffer
-	for (int i = 0; i < buffer.getNumSamples(); ++i)
+	for (int sample = 0; sample < buffer.getNumSamples(); sample++)
 	{
 		// channels summed so that both channels may be panned without losing existing stereo balance
-		float channelDataC = channelDataL[i] + channelDataR[i];
+		
+			float channelDataC = inputDataL[sample] +inputDataR[sample];
 
-		// write gain scaled data to left and right channels
-		for (int channel = 0; channel < totalNumInputChannels; ++channel)
-		{
-			channelDataL[i] = lGainVal*channelDataC + dryGain*channelDataC;
-			channelDataR[i] = rGainVal*channelDataC + dryGain*channelDataC;
-		}
+			outputDataL[sample] = lGainVal*channelDataC + width*channelDataC;
+			outputDataR[sample] = rGainVal*channelDataC + width*channelDataC;
+
+		
 	}
 
 }

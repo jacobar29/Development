@@ -11,7 +11,7 @@
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "Oscillator.h"
+#include "Panner.h"
 
 //==============================================================================
 /**
@@ -59,16 +59,19 @@ public:
 
 private:
 
-	Oscillator osc;
+	// allow independent processing for each channel
+	Panner osc;
+
 	float frequency;
 
 
 	//represents sin wave value
 	float wave;
-	
+
+	float width;
 	float lGainVal;
 	float rGainVal;
-	float dryGain;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (PanneramaAudioProcessor)
 };

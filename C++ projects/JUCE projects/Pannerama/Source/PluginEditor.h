@@ -30,16 +30,14 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     PanneramaAudioProcessor& processor;
-
+	ScopedPointer<AudioProcessorValueTreeState::ComboBoxAttachment> waveType;
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> rateVal;
 	ScopedPointer<AudioProcessorValueTreeState::SliderAttachment> widthVal;
 
-
+	ComboBox waveMenu;
 	Slider rateSlider;
 	Slider widthSlider;
 
-	Label rL;
-	Label wL;
 
 
 	juce::Rectangle<int> area;
