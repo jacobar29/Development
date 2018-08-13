@@ -20,17 +20,19 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 void getChordsFromFile();
 void AddMenus(HWND);
 void AddControls(HWND);
-void transpose();
+void transpose(HWND);
 void getInputText();
-void printChordDiagrams();
+void printChordDiagrams(HWND);
 void getModifier(int);
-void clearButton();
-
+void clearButton(HWND);
 
 HMENU hMenu;
 HWND inputEdit;
 HWND numBox;
 HWND outputWindow;
+
+std::vector<HWND> drawnChords;
+
 int windowWidth = 500;
 int windowHeight = 500;
 
@@ -102,14 +104,14 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 			break;
 		case TRANSPOSE_UP_BUTTON:
 			getModifier(1);
-			transpose();
+			transpose(hWnd);
 			break;
 		case TRANSPOSE_DOWN_BUTTON:
 			getModifier(0);
-			transpose();
+			transpose(hWnd);
 			break;
 		case CLEAR_BUTTON:
-			clearButton();
+			clearButton(hWnd);
 			break;
 		}
 
@@ -149,7 +151,7 @@ void AddControls(HWND hWnd)
 	CreateWindowW(L"Button", L"-1", WS_VISIBLE | WS_CHILD, 10, 160, 100, 50, hWnd, (HMENU)TRANSPOSE_DOWN_BUTTON, NULL, NULL);
 	numBox = CreateWindowW(L"Edit", L"0", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_NUMBER, (int)((windowWidth / 2) - 25), 160, 50, 50, hWnd, NULL, NULL, NULL);
 	CreateWindowW(L"Button", L"+1", WS_VISIBLE | WS_CHILD, windowWidth - 110, 160, 100, 50, hWnd, (HMENU)TRANSPOSE_UP_BUTTON, NULL, NULL);
-	outputWindow = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_MULTILINE, 10, 210, windowWidth, 100, hWnd, NULL, NULL, NULL);
+	outputWindow = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_AUTOVSCROLL, 10, 210, windowWidth, 50, hWnd, NULL, NULL, NULL);
 
 	CreateWindowW(L"Button", L"Clear", WS_VISIBLE | WS_CHILD, windowWidth - 110, windowHeight-90, 100, 50, hWnd, (HMENU)CLEAR_BUTTON, NULL, NULL);
 
@@ -223,7 +225,7 @@ void getChordsFromFile()
 }
 
 // transpose the chords independent of any post chord suffix, modifier must already be set using getModifier() function
-void transpose()
+void transpose(HWND hWnd)
 {
 	getInputText();
 	outString.clear();
@@ -284,14 +286,22 @@ void transpose()
 	}
 
 	// clear outputwindow and write  string
-	printChordDiagrams();
+	printChordDiagrams(hWnd);
 
 }
 
-void printChordDiagrams()
+void printChordDiagrams(HWND hWnd)
 {
-	//clear gui and rows array
+	int pWidth = 60;
+	int pHeight = 100;
+	int posx = 10;
+	int posy = 270;
+	//clear gui and reset arrays
 	outputChords.clear();
+	for (int i = 0; i < drawnChords.size(); i++)
+		SendMessage(drawnChords[i], STM_SETIMAGE, NULL, NULL);
+	drawnChords.clear();
+
 	for (int i = 0; i < 6; i++)
 		rows[i].clear();
 
@@ -302,58 +312,52 @@ void printChordDiagrams()
 		int j = 0;
 		while (j < chordDiagrams.size())
 		{
-			rowLength = chordsToPrint[i].length();
 
 			// if chord found
 			if (chordDiagrams[j].find(chordsToPrint[i] + " ") != std::string::npos)
 			{
+				
+				outputChords += chordDiagrams[j];
+				std::string bmpLocation = chordDiagrams[j + 1];
+				std::wstring stemp = std::wstring(bmpLocation.begin(), bmpLocation.end());
+				LPCWSTR sw = stemp.c_str();
 				// extract chord diagram to string
-				tempChord = chordDiagrams[j];
-				int currRow = 0;
-				//loop through characters of chord
-				for (int pos = 0; pos < tempChord.length(); pos++)
+				HWND chord = CreateWindowW(L"Static", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, posx, posy, pWidth, pHeight, hWnd, NULL, NULL, NULL);
+				HBITMAP	chordImage = (HBITMAP)LoadImageW(NULL, sw, IMAGE_BITMAP, pWidth, pHeight, LR_LOADFROMFILE);
+				drawnChords.push_back(chord);
+				SendMessage(chord, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)chordImage);
+
+
+
+
+				posx += pWidth;
+				//move to next row when row is full
+				if (posx + pWidth > windowWidth)
 				{
-					// if not whitespace or the | deonting end of chord in the text file
-					if (tempChord[pos] != ' ' && tempChord[pos] != '|' && tempChord[pos] != '\n')
-					{
-						rows[currRow] += tempChord[pos];
-						rowLength++;
-					}
-					else
-					{
-						// ensure even spacing of chords by adding whitespace until row is the correct length
-						while (rowLength != 8)
-						{
-							rows[currRow] += ' ';
-							rowLength++;
-						}
-						rowLength = 0;
-						if (currRow < 5)
-							currRow++;
-					}
-				} // end for itterate through char in tempChord
-			} // end if chord found loop
-
+					posx = 10;
+					posy += pHeight;
+				}			
+			} 
 			j++;
-		} // end while loop ( j < chordDiagrams.size())
+		} 	// end while loop ( j < chordDiagrams.size())
 
-	} // end all chords to print loop
-
-	for (int row = 0; row < 5; row++)
-		outputChords.append(rows[row] + "\r\n");
-	
-
+	}	  // end all chords to print loop
 	
 	// convert to correct type for output to outputWindow
 	std::wstring stemp = std::wstring(outputChords.begin(), outputChords.end());
 	LPCWSTR sw = stemp.c_str();
 	SetWindowText(outputWindow, sw);
+	
+
 
 }
 
-void clearButton()
+void clearButton(HWND hWnd)
 {
 	SetWindowText(outputWindow, L"");
 	SetWindowText(inputEdit, L"");
 	SetWindowText(numBox, L"0");
+	for (int i = 0; i < drawnChords.size(); i++)
+		SendMessage(drawnChords[i], STM_SETIMAGE, NULL, NULL);
+
 }
