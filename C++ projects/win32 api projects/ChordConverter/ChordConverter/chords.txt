@@ -1,4 +1,4 @@
-A
+A 
 Chords\\A.bmp 
 A# 
 Chords\\As.bmp
@@ -44,7 +44,7 @@ D#
 Chords\\Ds.bmp
 D7 
 Chords\\D7.bmp
-D#7
+D#7 
 Chords\\Ds7.bmp
 D#m7 
 Chords\\Dsm7.bmp
@@ -54,13 +54,13 @@ D#m
 Chords\\Dsm.bmp
 Dm7 
 Chords\\Dm7.bmp
-D#m7
+D#m7 
 Chords\\Dsm7.bmp 
 E 
 Chords\\E.bmp
 E7 
 Chords\\E7.bmp
-Em
+Em 
 Chords\\Em.bmp 
 Em7 
 Chords\\Em7.bmp
@@ -70,7 +70,7 @@ F#
 Chords\\Fs.bmp
 F7 
 Chords\\F7.bmp
-F#7
+F#7 
 Chords\\Fs7.bmp
 Fm 
 Chords\\Fm.bmp
@@ -84,13 +84,13 @@ G
 Chords\\G.bmp
 G# 
 Chords\\Gs.bmp
-G7 
+G7  
 Chords\\G7.bmp
-G#7 
+G#7  
 Chords\\Gs7.bmp
-Gm 
+Gm  
 Chords\\Gm.bmp
-G#m 
+G#m  
 Chords\\Gsm.bmp
 Gm7 
 Chords\\Gm7.bmp
