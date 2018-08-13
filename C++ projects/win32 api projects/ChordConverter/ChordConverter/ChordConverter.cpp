@@ -12,6 +12,8 @@
 #define FILE_MENU_EXIT  3
 #define TRANSPOSE_UP_BUTTON 4
 #define TRANSPOSE_DOWN_BUTTON 5
+#define CLEAR_BUTTON 6
+
 // forward declerations
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 
@@ -22,6 +24,8 @@ void transpose();
 void getInputText();
 void printChordDiagrams();
 void getModifier(int);
+void clearButton();
+
 
 HMENU hMenu;
 HWND inputEdit;
@@ -46,7 +50,6 @@ std::string rows[5];
 
 
 int rowLength; // ensures even results spacing
-			   //========
 
 std::string chord;
 std::string temp;
@@ -105,6 +108,9 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 			getModifier(0);
 			transpose();
 			break;
+		case CLEAR_BUTTON:
+			clearButton();
+			break;
 		}
 
 		break;
@@ -145,6 +151,8 @@ void AddControls(HWND hWnd)
 	CreateWindowW(L"Button", L"+1", WS_VISIBLE | WS_CHILD, windowWidth - 110, 160, 100, 50, hWnd, (HMENU)TRANSPOSE_UP_BUTTON, NULL, NULL);
 	outputWindow = CreateWindowW(L"Edit", L"...", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_MULTILINE, 10, 210, windowWidth, 100, hWnd, NULL, NULL, NULL);
 
+	CreateWindowW(L"Button", L"Clear", WS_VISIBLE | WS_CHILD, windowWidth - 110, windowHeight-90, 100, 50, hWnd, (HMENU)CLEAR_BUTTON, NULL, NULL);
+
 }
 
 // get the modifier number(the amount to transpose chords by) 
@@ -163,7 +171,7 @@ void getModifier(int state)
 	else
 		modifier = stoi(str) -1;
 	
-	if (modifier > 12 || modifier < -12)
+	if (modifier >= 12 || modifier <= -12)
 		modifier = 0;
 	
 	//convert int to correct type for output
@@ -203,7 +211,7 @@ void getInputText()
 void getChordsFromFile()
 {
 	std::ifstream chordsin;
-	chordsin.open("C:\\Users\\J\\Development\\C++ projects\\JUCE projects\\Chord converter\\Source\\chords.txt");
+	chordsin.open("chords.txt");
 	std::string str;
   
 	while (std::getline(chordsin, str))
@@ -341,4 +349,11 @@ void printChordDiagrams()
 	LPCWSTR sw = stemp.c_str();
 	SetWindowText(outputWindow, sw);
 
+}
+
+void clearButton()
+{
+	SetWindowText(outputWindow, L"");
+	SetWindowText(inputEdit, L"");
+	SetWindowText(numBox, L"0");
 }
