@@ -1,49 +1,98 @@
-A 0 0 1 2|
-A# 1 1 2 3|
-A7 0 0 1 0|
-A#7 1 1 2 1|
-Am 0 0 0 2|
-A#m 1 1 1 3|
-Am7 3 3 4 0|
-A#m7 1 1 1 1|
-B 2 2 3 4|
-B7 2 2 3 2|
-Bm 2 2 2 4|
-Bm7 2 2 2 2|
+A
+Chords\\A.bmp 
+A# 
+Chords\\As.bmp
+A7 
+Chords\\A7.bmp
+A#7 
+Chords\\As7.bmp
+Am 
+Chords\\Am.bmp
+A#m 
+Chords\\Asm.bmp
+Am7 
+Chords\\Am7.bmp
+A#m7 
+Chords\\Asm7.bmp
+B 
+Chords\\B.bmp
+B7 
+Chords\\B7.bmp
+Bm 
+Chords\\Bm.bmp
+Bm7 
+Chords\\Bm7.bmp
 C 
-C:\\Users\\J\Desktop\\C.bmp
-C# 4 1 1 1 |
-C7 1 0 0 0|
-C#7 2 1 1 1|
-Cm 3 3 3 0|
-C#m 0 0 1 1|
-Cm7 3 3 3 3|
-C#m7 2 0 1 1|
-D 4 2 2 2|
-D# 1 3 3 3|
-D7 3 2 2 2|
-D#7 4 3 3 3|
-Dm 0 1 2 2|
-D#m 1 2 3 3|
-Dm7 3 1 2 2|
-D#m7 1 2 3 3|
-E 2 0 4 1|
-E7 2 0 2 1|
-Em 1 2 3 0|
-Em7 2 0 2 0|
-F 0 1 0 2|
-F# 1 2 1 3|
-F7 0 1 3 2|
-F#7 4 2 4 3|
-Fm 2 1 0 1|
-F#m 0 2 1 2|
-Fm7 2 1 2 1|
-F#m7 4 2 4 2|
-G 2 3 2 0|
-G# 3 4 3 5|
-G7 2 1 2 0|
-G#7 3 2 3 1|
-Gm 1 3 2 0|
-G#m 2 4 3 4|
-Gm7 1 1 2 0|
-G#m7 2 2 3 1|
+Chords\\C.bmp
+C# 
+Chords\\Cs.bmp
+C7 
+Chords\\C7.bmp
+C#7  
+Chords\\Cs7.bmp
+Cm 
+Chords\\Cm.bmp
+C#m 
+Chords\\Csm.bmp
+Cm7 
+Chords\\Cm7.bmp
+C#m7 
+Chords\\Csm7.bmp
+D 
+Chords\\D.bmp
+D# 
+Chords\\Ds.bmp
+D7 
+Chords\\D7.bmp
+D#7
+Chords\\Ds7.bmp
+D#m7 
+Chords\\Dsm7.bmp
+Dm 
+Chords\\Dm.bmp
+D#m 
+Chords\\Dsm.bmp
+Dm7 
+Chords\\Dm7.bmp
+D#m7
+Chords\\Dsm7.bmp 
+E 
+Chords\\E.bmp
+E7 
+Chords\\E7.bmp
+Em
+Chords\\Em.bmp 
+Em7 
+Chords\\Em7.bmp
+F 
+Chords\\F.bmp
+F# 
+Chords\\Fs.bmp
+F7 
+Chords\\F7.bmp
+F#7
+Chords\\Fs7.bmp
+Fm 
+Chords\\Fm.bmp
+F#m 
+Chords\\Fsm.bmp
+Fm7 
+Chords\\Fm7.bmp
+F#m7 
+Chords\\Fsm7.bmp
+G 
+Chords\\G.bmp
+G# 
+Chords\\Gs.bmp
+G7 
+Chords\\G7.bmp
+G#7 
+Chords\\Gs7.bmp
+Gm 
+Chords\\Gm.bmp
+G#m 
+Chords\\Gsm.bmp
+Gm7 
+Chords\\Gm7.bmp
+G#m7 
+Chords\\Gsm7.bmp
