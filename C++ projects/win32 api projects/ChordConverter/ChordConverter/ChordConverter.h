@@ -22,7 +22,7 @@ int getModifier(int);
 void transpose(HWND, int);
 void printChordDiagrams(HWND);
 void clearGUI();
-
+bool dragWindow;
 //GUI elements
 HWND inputWindow;
 HWND numBox;

@@ -39,7 +39,6 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 
 	switch (msg)
 	{
-		
 
 		// initialise menus, controls and chord arrays
 	case WM_CREATE:
@@ -194,7 +193,7 @@ void getInputText()
 void getChordsFromFile()
 {
 	std::ifstream chordsin;
-	chordsin.open("chords.txt");
+	chordsin.open("chords\\chords.txt");
 	std::string str;
   
 	while (std::getline(chordsin, str))
@@ -333,10 +332,10 @@ void clearGUI()
 
 void loadImages(HWND hWnd)
 {
-	mBtnImage = (HBITMAP)LoadImageW(NULL, L"Minus.bmp", IMAGE_BITMAP, 100, 50, LR_LOADFROMFILE);
-	pBtnImage = (HBITMAP)LoadImageW(NULL, L"Plus.bmp", IMAGE_BITMAP, 100, 50, LR_LOADFROMFILE);
-  	cBtnImage = (HBITMAP)LoadImageW(NULL, L"Clear.bmp", IMAGE_BITMAP, 70, 30, LR_LOADFROMFILE);
-	logoImage = (HBITMAP)LoadImageW(NULL, L"ChordConverter.ico", IMAGE_ICON, 70, 30, LR_LOADFROMFILE);
+	mBtnImage = (HBITMAP)LoadImageW(NULL, L"Images\\Minus.bmp", IMAGE_BITMAP, 100, 50, LR_LOADFROMFILE);
+	pBtnImage = (HBITMAP)LoadImageW(NULL, L"Images\\Plus.bmp", IMAGE_BITMAP, 100, 50, LR_LOADFROMFILE);
+  	cBtnImage = (HBITMAP)LoadImageW(NULL, L"Images\\Clear.bmp", IMAGE_BITMAP, 70, 30, LR_LOADFROMFILE);
+	logoImage = (HBITMAP)LoadImageW(NULL, L"Images\\ChordConverter.ico", IMAGE_ICON, 70, 30, LR_LOADFROMFILE);
 
 
 }
