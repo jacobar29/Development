@@ -1,11 +1,11 @@
 ﻿  ChordConverter.cpp
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(208): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(235): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(243): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(301): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(309): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(313): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(360): warning C4018: '<': signed/unsigned mismatch
-c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(134): warning C4715: 'WindowProcedure': not all control paths return a value
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(188): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(226): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(234): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(273): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(279): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(283): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(329): warning C4018: '<': signed/unsigned mismatch
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(112): warning C4715: 'WindowProcedure': not all control paths return a value
   ChordConverter.vcxproj -> C:\Users\J\Development\C++ projects\win32 api projects\ChordConverter\Debug\ChordConverter.exe
   ChordConverter.vcxproj -> C:\Users\J\Development\C++ projects\win32 api projects\ChordConverter\Debug\ChordConverter.pdb (Full PDB)
