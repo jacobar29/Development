@@ -1,5 +1,5 @@
 #include <windows.h>
-#include <stdafx.h>
+#include "stdafx.h"
 #include <windowsx.h>
 #include <vector>
 #include <string>
@@ -42,7 +42,6 @@ LRESULT CALLBACK WindowProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 
 		// initialise menus, controls and chord arrays
 	case WM_CREATE:
-		getChordsFromFile();
 		loadImages(hWnd);
 		AddControls(hWnd);
 		SendMessage(hWnd, WM_SETICON, ICON_BIG, (LPARAM)logoImage);
@@ -142,13 +141,12 @@ int getModifier(int state)
 	wchar_t wtemp[100];
 	GetWindowText(numBox, wtemp, 256);
 	std::wstring ws(wtemp);
-	std::string str(ws.begin(), ws.end());
 	
 	// increment / decrement value, reset if exceeds bounds	
 	if (state == 1)
-		modifier = stoi(str) +1;
+		modifier = stoi(ws) +1;
 	else
-		modifier = stoi(str) -1;
+		modifier = stoi(ws) -1;
 	
 	if (modifier >= 12 || modifier <= -12)
 		modifier = 0;
@@ -171,15 +169,12 @@ void getInputText()
 	//get and convert type to std::string
 	wchar_t inText[100];
 	GetWindowText(inputWindow, inText, 100);
-	std::wstring ws(inText);
-	std::string textInput(ws.begin(), ws.end());
-	std::stringstream instream(textInput); 
-	std::string str;
+	std::wstringstream instream(inText); 
 	// write all from instream to inputchords vector
-	while (instream >> str)
+	while (instream >> inText)
 	{
-		inputChords.push_back(str);
-		if (instream.peek() == ' ')		 // delimit at space
+		inputChords.push_back(inText);
+		if (instream.peek() == (wchar_t)" ")		 // delimit at space
 			instream.ignore();
 	}
 	
@@ -188,26 +183,12 @@ void getInputText()
 		inputChords[i][0] = toupper(inputChords[i][0]);
 
 }
-
-// get chords from file and store them in the array to be called when printed
-void getChordsFromFile()
-{
-	std::ifstream chordsin;
-	chordsin.open("chords\\chords.txt");
-	std::string str;
-  
-	while (std::getline(chordsin, str))
-	{
-		chordDiagrams.push_back(str);
-	}
-	chordsin.close();
-
-}
+	
 
 //checks if c is base note or suffix
 bool is_base(char c)
 {
-	char bases[8] = { 'A', 'B','C','D','E','F','G','#' };
+	wchar_t bases[8] = { 'A', 'B','C','D','E','F','G','#' };
 	return std::find(std::begin(bases), std::end(bases), c) != std::end(bases);
 }
 
@@ -215,8 +196,8 @@ bool is_base(char c)
 void transpose(HWND hWnd, int state)
 {
 	int modifier = getModifier(state);
-	std::string baseNote;
-	std::string noteSuffix;
+	std::wstring baseNote;
+	std::wstring noteSuffix;
 	getInputText();
 	chordsToPrint.clear();
 	int newNoteIndex = 0;
@@ -224,7 +205,7 @@ void transpose(HWND hWnd, int state)
 	//loop through vector
 	for (int i = 0; i < inputChords.size(); i++)
 	{
-		std::string temp = inputChords[i];
+		std::wstring temp = inputChords[i];
 		//clear existing string data
 		baseNote.clear();
 		noteSuffix.clear();
@@ -263,59 +244,46 @@ void transpose(HWND hWnd, int state)
 
 void printChordDiagrams(HWND hWnd)
 {
-	std::string outputString; //string printed to outputWindow
-	
-	//starting x and y coords for first row
-	int posx = 20;	 
+	std::wstring outputString; //string printed to outputWindow
+							   //starting x and y coords for first row	of chord diagrams
+	int posx = 20;
 	int posy = 290;
-
 	for (int i = 0; i < drawnChords.size(); i++)
 		SendMessage(drawnChords[i], STM_SETIMAGE, NULL, NULL);
 	
 	drawnChords.clear();
 	
-	// loop all chords to print
 	for (int i = 0; i < chordsToPrint.size(); i++)
 	{
-		//find chord in chorddiagrams
-		int j = 0;
-		while (j < chordDiagrams.size())
+		outputString += chordsToPrint[i] + L" ";	  //add to string to be printed in outputWindow
+		
+		// convert '#' to 's', issues retreiving file names with '#', all sharps now represented by s in file paths.
+		for (int j = 0; j < chordsToPrint[i].length(); j++)
+			if (chordsToPrint[i][j] == '#')
+				chordsToPrint[i][j] = 's';
+		
+
+		std::wstring url = L"Chords\\" + chordsToPrint[i] + L".bmp";
+		
+		//create window and display chord image bitmap
+		HWND chord = CreateWindowW(L"Static", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, posx, posy, bmpWidth, bmpHeight, hWnd, NULL, NULL, NULL);
+		HBITMAP	chordImage = (HBITMAP)LoadImageW(NULL, url.c_str() , IMAGE_BITMAP, bmpWidth, bmpHeight, LR_LOADFROMFILE);
+		SendMessage(chord, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)chordImage);
+
+		drawnChords.push_back(chord); //add chordwindow to drawnchords array for clearing purposes
+		
+		//update coordinates for next chord	   
+		posx += bmpWidth; 
+
+		//move to next row when row is full
+		if (posx + bmpWidth > windowWidth)
 		{
-			// if chord found
-			if (chordDiagrams[j].find(chordsToPrint[i] + " ") != std::string::npos)
-			{
-				outputString += chordDiagrams[j];	  //add to string to be printed in outputWindow
-				
-				//get and convert url to LPCWSTR
-				std::string bmpLocation = chordDiagrams[j + 1];
-				std::wstring stemp = std::wstring(bmpLocation.begin(), bmpLocation.end());
-				LPCWSTR sw = stemp.c_str();
-				
-				//create window and display chord image bitmap
-				HWND chord = CreateWindowW(L"Static", NULL, WS_VISIBLE | WS_CHILD | SS_BITMAP, posx, posy, bmpWidth, bmpHeight, hWnd, NULL, NULL, NULL);
-				HBITMAP	chordImage = (HBITMAP)LoadImageW(NULL, sw, IMAGE_BITMAP, bmpWidth, bmpHeight, LR_LOADFROMFILE);
-				SendMessage(chord, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)chordImage);
-
-				drawnChords.push_back(chord); //add chordwindow to drawnchords array for clearing purposes
-			   
-				posx += bmpWidth; //update coordinates for next chord
-
-				//move to next row when row is full
-				if (posx + bmpWidth > windowWidth)
-				{
-					posx = 10;
-					posy += bmpHeight;
-				}			
-			} // end if chord found loop 
-			j++;
-		} 	// end while loop ( j < chordDiagrams.size())
-
+			posx = 20;
+			posy += bmpHeight;
+		}			
 	}	  // end all chords to print loop
 	
-	// convert to correct type for output to outputWindow
-	std::wstring stemp = std::wstring(outputString.begin(), outputString.end());
-	LPCWSTR sw = stemp.c_str();
-	SetWindowText(outputWindow, sw);
+	SetWindowText(outputWindow, outputString.c_str());
 	
 }
 
@@ -336,6 +304,5 @@ void loadImages(HWND hWnd)
 	pBtnImage = (HBITMAP)LoadImageW(NULL, L"Images\\Plus.bmp", IMAGE_BITMAP, 100, 50, LR_LOADFROMFILE);
   	cBtnImage = (HBITMAP)LoadImageW(NULL, L"Images\\Clear.bmp", IMAGE_BITMAP, 70, 30, LR_LOADFROMFILE);
 	logoImage = (HBITMAP)LoadImageW(NULL, L"Images\\ChordConverter.ico", IMAGE_ICON, 70, 30, LR_LOADFROMFILE);
-
 
 }

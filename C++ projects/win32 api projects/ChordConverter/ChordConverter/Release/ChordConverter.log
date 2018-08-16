@@ -1,0 +1,8 @@
+﻿  Generating code
+c:\users\j\development\c++ projects\win32 api projects\chordconverter\chordconverter\chordconverter.cpp(110): warning C4715: 'WindowProcedure': not all control paths return a value
+  2 of 307 functions ( 0.7%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ChordConverter.vcxproj -> C:\Users\J\Development\C++ projects\win32 api projects\ChordConverter\Release\ChordConverter.exe
+  ChordConverter.vcxproj -> C:\Users\J\Development\C++ projects\win32 api projects\ChordConverter\Release\ChordConverter.pdb (Full PDB)
